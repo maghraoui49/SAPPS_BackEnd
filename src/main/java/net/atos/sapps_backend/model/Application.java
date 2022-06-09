@@ -165,8 +165,11 @@ public class Application {
                 Map<String,String> s_libelle_norme = (Map<String,String>)content.get("s_LIBELLE_NORME");
                 this.nom = (String)s_libelle_norme.get("content");
 
-                Map<String,String> contentMap2 = (Map<String,String>)content.get("s_GESTION_PATRIMOINE");
-                this.gestionPatrimoine = (String) contentMap2.get("label");
+                Map<String,String> s_gestion_patrimoine = (Map<String,String>)content.get("s_GESTION_PATRIMOINE");
+                if (s_gestion_patrimoine.get("label") == null)
+                        this.gestionPatrimoine= "Aucun";
+                else
+                        this.gestionPatrimoine = (String) s_gestion_patrimoine.get("label");
 
                 Map<String,String> sous_domaine = (Map<String,String>)content.get("s_SOUS_DOMAINE");
                 this.socle = (String) sous_domaine.get("label");
@@ -180,14 +183,22 @@ public class Application {
                 Map<String,String> s_appartenance= (Map<String,String>)content.get("s_APPARTENANCE");
                 this.appartenance = (String) s_appartenance.get("label");
 
-
                 Map<String,String>  s_statut_deco= (Map<String,String>)content.get("s_STATUT_DECO");
-                this.deco = (String) s_statut_deco.get("label");
+                if (s_statut_deco.get("label") == null)
+                        this.deco= "Aucun";
+                else
+                        this.deco = (String) s_statut_deco.get("label");
 
                 Map<String,String> s_systeme_applicatif= (Map<String,String>)content.get("s_SYSTEME_APPLICATIF");
+                if (s_systeme_applicatif.get("label")== null)
+                        this.applicatif="Aucun";
+                else
                 this.applicatif = (String) s_systeme_applicatif.get("label");
 
                 Map<String,String> s_departement_build_run= (Map<String,String>)content.get("s_DEPARTEMENT_BUILD_RUN");
+                if (s_departement_build_run.get("label") == null)
+                        this.responsable= "Aucun";
+                else
                 this.responsable = (String) s_departement_build_run.get("label");
 
                 Map<String,String> s_domaine_principal= (Map<String,String>)content.get("s_DOMAINE_PRINCIPAL");

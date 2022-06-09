@@ -8,18 +8,23 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import net.atos.sapps_backend.model.Application;
+import net.atos.sapps_backend.model.Socle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/application")
-public class ApplicationController {
+@RequestMapping("/socle")
+public class SocleController {
 
 
     @Autowired
@@ -27,15 +32,15 @@ public class ApplicationController {
     @Autowired
     private AuthController authController;
 
+    private static final String SOCLE_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsImports/InstanceSourceApplicationsImports/root/T_SOUS_DOMAINE";
 
-    private static final String APPLICATION_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplications/InstanceSourceApplications/root/T_APPLICATION?pageSize=800";
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity <List<Application>> getApplications() throws JsonProcessingException {
+    public ResponseEntity<List<Socle>> getSocle() throws JsonProcessingException {
         String response = null;
         try {
 
-                // if the authentication is successful
+            // if the authentication is successful
             if (authController.auth().getStatusCode().equals(HttpStatus.OK)) {
 
                 String token = authController.auth().getBody().getTokenType()+ " " +authController.auth().getBody().getAccessToken();
@@ -43,10 +48,10 @@ public class ApplicationController {
                 headers.set("Authorization", token);
 
                 HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
-                    // Use Token to get Response
-                ResponseEntity<String> helloResponse = restTemplate.exchange(APPLICATION_URL, HttpMethod.GET, jwtEntity, String.class);
+                // Use Token to get Response
+                ResponseEntity<String> helloResponse = restTemplate.exchange(SOCLE_URL, HttpMethod.GET, jwtEntity, String.class);
                 if (helloResponse.getStatusCode().equals(HttpStatus.OK)) {
-                        response = helloResponse.getBody();
+                    response = helloResponse.getBody();
 
                 }
             }
@@ -62,9 +67,9 @@ public class ApplicationController {
         JSONObject jsonObject = new JSONObject(response);
         JSONArray recs = jsonObject.getJSONArray("rows");
 
-        List<Application> applicationDTOS = objectMapper.readValue(recs.toString(), new TypeReference<List<Application>>() {
+        List<Socle> socleDTOS = objectMapper.readValue(recs.toString(), new TypeReference<List<Socle>>() {
         });
-        return ResponseEntity.status(HttpStatus.OK).body(applicationDTOS);
+        return ResponseEntity.status(HttpStatus.OK).body(socleDTOS);
     }
 
 
