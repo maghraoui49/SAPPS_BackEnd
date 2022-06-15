@@ -2,6 +2,10 @@ package net.atos.sapps_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class Application {
@@ -28,33 +32,34 @@ public class Application {
         private String responsable;
         private String domaine;
         private String categorie;
-        private String dateCreation;
-        private String dateDeco;
-        private String dateDerniereModif;
+
+        Date dateDecommission;
+        Date dateMiseEnService;
+        String enTMA;
 
 
-        public String getDateCreation() {
-                return dateCreation;
+        public Date getDateDecommission() {
+                return dateDecommission;
         }
 
-        public void setDateCreation(String dateCreation) {
-                this.dateCreation = dateCreation;
+        public void setDateDecommission(Date dateDecommission) {
+                this.dateDecommission = dateDecommission;
         }
 
-        public String getDateDeco() {
-                return dateDeco;
+        public Date getDateMiseEnService() {
+                return dateMiseEnService;
         }
 
-        public void setDateDeco(String dateDeco) {
-                this.dateDeco = dateDeco;
+        public void setDateMiseEnService(Date dateMiseEnService) {
+                this.dateMiseEnService = dateMiseEnService;
         }
 
-        public String getDateDerniereModif() {
-                return dateDerniereModif;
+        public String getEnTMA() {
+                return enTMA;
         }
 
-        public void setDateDerniereModif(String dateDerniereModif) {
-                this.dateDerniereModif = dateDerniereModif;
+        public void setEnTMA(String enTMA) {
+                this.enTMA = enTMA;
         }
 
         public String getId() {
@@ -158,7 +163,9 @@ public class Application {
 
         @SuppressWarnings("unchecked")
         @JsonProperty("content")
-        private void unpackNested(Map<String,Object> content) {
+        private void unpackNested(Map<String,Object> content) throws ParseException {
+                DateFormat sourceFormat = new SimpleDateFormat("yyyy-mm-dd");
+
                 Map<String,String> contentMap = (Map<String,String>)content.get("s_CODE");
                 this.id = (String)contentMap.get("content");
 
@@ -207,13 +214,17 @@ public class Application {
                 Map<String,String> s_categorie= (Map<String,String>)content.get("s_CATEGORIE");
                 this.categorie = (String) s_categorie.get("content");
 
-                Map<String,String> d_date_creation= (Map<String,String>)content.get("d_DATE_CREATION");
-                this.dateCreation = (String) d_date_creation.get("content");
+
+
+                Map<String,String> d_date_premiere_mep= (Map<String,String>)content.get("d_DATE_PREMIERE_MEP");
+                if (d_date_premiere_mep.get("content")!=null)
+                        this.dateMiseEnService = sourceFormat.parse(  d_date_premiere_mep.get("content"));
 
                 Map<String,String> d_date_decommissionnement= (Map<String,String>)content.get("d_DATE_DECOMMISSIONNEMENT");
-                this.dateDeco = (String) d_date_decommissionnement.get("content");
+                if (d_date_decommissionnement.get("content")!=null)
+                        this.dateDecommission = sourceFormat.parse(  d_date_decommissionnement.get("content"));
 
-                Map<String,String> d_date_derniere_modif= (Map<String,String>)content.get("d_DATE_DERNIERE_MODIF");
-                this.dateDerniereModif = (String) d_date_derniere_modif.get("label");
+                Map<String,String> b_en_tma= (Map<String,String>)content.get("b_En_TMA");
+                this.enTMA = (String) b_en_tma.get("label");
         }
 }

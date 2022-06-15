@@ -14,7 +14,7 @@ public class Socle {
     private String resp;
     private String archi;
     //private String end;
-    private String dateEnd; // date de fin ou de décommissionnement
+    private String dateFin; // date de fin ou de décommissionnement
     private String libelle;
     private String libellePrefixe;
     private String categorie;
@@ -86,12 +86,12 @@ public class Socle {
 //        this.end = end;
 //    }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getDateFin() {
+        return dateFin;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
     }
 
     public String getLibelle() {
@@ -158,7 +158,7 @@ public class Socle {
         this.archi = (String) s_archiSOCLE.get("label");
 
         Map<String, String> d_date_fin = (Map<String, String>) content.get("d_DATE_FIN");
-        this.dateEnd = (String) d_date_fin.get("content");
+        this.dateFin = (String) d_date_fin.get("content");
 
         Map<String, String> s_libelle = (Map<String, String>) content.get("s_LIBELLE");
         this.libelle = (String) s_libelle.get("content");

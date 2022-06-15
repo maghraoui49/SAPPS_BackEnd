@@ -1,4 +1,4 @@
-package net.atos.sapps_backend.controller;
+package net.atos.sapps_backend.controller.Architecture;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -7,8 +7,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import net.atos.sapps_backend.model.Application;
-import net.atos.sapps_backend.model.Socle;
+import net.atos.sapps_backend.controller.AuthController;
+import net.atos.sapps_backend.model.ObjetMetier;
+import net.atos.sapps_backend.model.TopicFonctionnel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +24,20 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/socle")
-public class SocleController {
-
+@RequestMapping("/topic")
+public class TopicFonctionnelController {
 
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
     private AuthController authController;
 
-    private static final String SOCLE_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsImports/InstanceSourceApplicationsImports/root/T_SOUS_DOMAINE";
+    private static final String TOPIC_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsBAS/InstanceSourceApplicationsBAS/root/T_TOPIC_OUT";
+
 
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<Socle>> getSocle() throws JsonProcessingException {
+    public ResponseEntity<List<TopicFonctionnel>> getObjets() throws JsonProcessingException {
         String response = null;
         try {
 
@@ -49,7 +50,7 @@ public class SocleController {
 
                 HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
                 // Use Token to get Response
-                ResponseEntity<String> helloResponse = restTemplate.exchange(SOCLE_URL, HttpMethod.GET, jwtEntity, String.class);
+                ResponseEntity<String> helloResponse = restTemplate.exchange(TOPIC_URL, HttpMethod.GET, jwtEntity, String.class);
                 if (helloResponse.getStatusCode().equals(HttpStatus.OK)) {
                     response = helloResponse.getBody();
 
@@ -67,9 +68,9 @@ public class SocleController {
         JSONObject jsonObject = new JSONObject(response);
         JSONArray recs = jsonObject.getJSONArray("rows");
 
-        List<Socle> socleDTOS = objectMapper.readValue(recs.toString(), new TypeReference<List<Socle>>() {
+        List<TopicFonctionnel> topicFonctionnelList = objectMapper.readValue(recs.toString(), new TypeReference<List<TopicFonctionnel>>() {
         });
-        return ResponseEntity.status(HttpStatus.OK).body(socleDTOS);
+        return ResponseEntity.status(HttpStatus.OK).body(topicFonctionnelList);
     }
 
 
@@ -78,5 +79,4 @@ public class SocleController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
-
 }
