@@ -1,5 +1,6 @@
 package net.atos.sapps_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.DateFormat;
@@ -7,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Application {
 
         //s_CODE
@@ -185,7 +186,10 @@ public class Application {
                 this.etat = (String) s_etat.get("label");
 
                 Map<String,String> s_exploitation= (Map<String,String>)content.get("s_EXPLOITATION");
-                this.exploitation = (String) s_exploitation.get("label");
+                if (s_exploitation.get("label") == null)
+                        this.exploitation="Aucun";
+                else
+                        this.exploitation = (String) s_exploitation.get("label");
 
                 Map<String,String> s_appartenance= (Map<String,String>)content.get("s_APPARTENANCE");
                 this.appartenance = (String) s_appartenance.get("label");

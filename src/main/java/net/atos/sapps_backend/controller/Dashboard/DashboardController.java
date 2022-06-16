@@ -191,13 +191,12 @@ public class DashboardController {
             }
 
             JsonNode gspatrimoine= dashNode.get("gspatrimoine");
-    int val;
             for (int j = 0; j < appartenance.get("label").size(); j++) {
 
                 if ( applicationDTOS.get(i).getGestionPatrimoine()!=null && applicationDTOS.get(i).getGestionPatrimoine().equals(gspatrimoine.get("label").get(j).asText()))
 
                 {
-                     val=((ArrayNode )dashNode.get("gspatrimoine").get("data")).get(j).asInt()+1;
+                    int  val=((ArrayNode )dashNode.get("gspatrimoine").get("data")).get(j).asInt()+1;
                     ((ArrayNode )dashNode.get("gspatrimoine").get("data")).insert(j,val);
                     break;
                 }
@@ -224,14 +223,14 @@ public class DashboardController {
 
                 if (  applicationDTOS.get(i).getDateMiseEnService()!=null && applicationDTOS.get(i).getDateMiseEnService().getYear()+1900==(lineChart.get("label").get(j).asInt()))
                 {
-                    int val=((ArrayNode )lineChart.get("dataMiseEnService")).get(j).asInt()+1;
+                    Integer val= (Integer)((ArrayNode )lineChart.get("dataMiseEnService")).get(j).asInt()+1;
                     ((ArrayNode )lineChart.get("dataMiseEnService")).insert(j,val);
                     break;
                 }
                 if (  applicationDTOS.get(i).getDateDecommission()!=null && applicationDTOS.get(i).getDateDecommission().getYear()+1900==(lineChart.get("label").get(j).asInt()))
                 {
-                    int val=((ArrayNode )lineChart.get("dataDecom")).get(j).asInt()+1;
-                    ((ArrayNode )lineChart.get("dataDecom")).set(j,val);
+                        Integer  val=(Integer) ((ArrayNode )lineChart.get("dataDecom")).get(j).asInt()+1;
+                    ((ArrayNode )lineChart.get("dataDecom")).insert(j,val);
                     break;
                 }
 

@@ -28,7 +28,7 @@ public class ApplicationController {
     private AuthController authController;
 
 
-    private static final String APPLICATION_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplications/InstanceSourceApplications/root/T_APPLICATION";
+    private static final String APPLICATION_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplications/InstanceSourceApplications/root/T_APPLICATION?pageSize=760";
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity <List<Application>> getApplications() throws JsonProcessingException {
