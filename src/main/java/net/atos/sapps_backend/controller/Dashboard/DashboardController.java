@@ -184,7 +184,7 @@ public class DashboardController {
                 if (applicationDTOS.get(i).getAppartenance().equals(appartenance.get("label").get(j).asText()))
                 {
                     int val=((ArrayNode )dashNode.get("appartenance").get("data")).get(j).asInt()+1;
-                    ((ArrayNode )dashNode.get("appartenance").get("data")).insert(j,val);
+                    ((ArrayNode )dashNode.get("appartenance").get("data")).set(j,val);
                     break;
                 }
 
@@ -197,7 +197,7 @@ public class DashboardController {
 
                 {
                     int  val=((ArrayNode )dashNode.get("gspatrimoine").get("data")).get(j).asInt()+1;
-                    ((ArrayNode )dashNode.get("gspatrimoine").get("data")).insert(j,val);
+                    ((ArrayNode )dashNode.get("gspatrimoine").get("data")).set(j,val);
                     break;
                 }
 
@@ -211,7 +211,7 @@ public class DashboardController {
                 if (  applicationDTOS.get(i).getEtat().equals(etat.get("label").get(j).asText()))
                 {
                     int val=((ArrayNode )dashNode.get("etat").get("data")).get(j).asInt()+1;
-                    ((ArrayNode )dashNode.get("etat").get("data")).insert(j,val);
+                    ((ArrayNode )dashNode.get("etat").get("data")).set(j,val);
                     break;
                 }
 
@@ -224,13 +224,13 @@ public class DashboardController {
                 if (  applicationDTOS.get(i).getDateMiseEnService()!=null && applicationDTOS.get(i).getDateMiseEnService().getYear()+1900==(lineChart.get("label").get(j).asInt()))
                 {
                     Integer val= (Integer)((ArrayNode )lineChart.get("dataMiseEnService")).get(j).asInt()+1;
-                    ((ArrayNode )lineChart.get("dataMiseEnService")).insert(j,val);
+                    ((ArrayNode )lineChart.get("dataMiseEnService")).set(j,val);
                     break;
                 }
                 if (  applicationDTOS.get(i).getDateDecommission()!=null && applicationDTOS.get(i).getDateDecommission().getYear()+1900==(lineChart.get("label").get(j).asInt()))
                 {
                         Integer  val=(Integer) ((ArrayNode )lineChart.get("dataDecom")).get(j).asInt()+1;
-                    ((ArrayNode )lineChart.get("dataDecom")).insert(j,val);
+                    ((ArrayNode )lineChart.get("dataDecom")).set(j,val);
                     break;
                 }
 
