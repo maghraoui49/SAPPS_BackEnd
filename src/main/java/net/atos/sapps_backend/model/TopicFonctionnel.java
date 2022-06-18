@@ -103,13 +103,22 @@ public class TopicFonctionnel {
         this.libelle = (String) s_libelle.get("content");
 
         Map<String, String> s_socle = (Map<String, String>) content.get("s_SOCLE");
+        if (s_socle.get("label") == null)
+            this.socle= "Aucun";
+        else
         this.socle = (String) s_socle.get("label");
 
         Map<String, String> s_catego_topic = (Map<String, String>) content.get("s_CATEGO_TOPIC");
+        if (s_catego_topic.get("label") == null)
+            this.categorie= "Aucun";
+        else
         this.categorie = (String) s_catego_topic.get("label");
 
         Map<String, String> s_objet_metier = (Map<String, String>) content.get("s_OBJET_METIER");
-        this.objetMetier = (String) s_objet_metier.get("label");
+        if (s_objet_metier.get("label") == null)
+            this.objetMetier= "Aucun";
+        else
+            this.objetMetier = (String) s_objet_metier.get("label");
 
         Map<String, String> s_description = (Map<String, String>) content.get("s_DESCRIPTION");
         this.description = (String) s_description.get("content");

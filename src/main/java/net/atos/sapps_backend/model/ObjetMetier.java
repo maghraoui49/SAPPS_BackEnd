@@ -117,10 +117,16 @@ public class ObjetMetier {
         this.name = (String) s_libelle_en.get("content");
 
         Map<String, String> s_socle = (Map<String, String>) content.get("s_SOCLE");
-        this.socle = (String) s_socle.get("label");
+        if (s_socle.get("label") == null)
+            this.socle= "Aucun";
+        else
+            this.socle = (String) s_socle.get("label");
 
         Map<String, String> s_resp_socle = (Map<String, String>) content.get("s_RESP_SOCLE");
-        this.responsableSocle = (String) s_resp_socle.get("content");
+        if (s_resp_socle.get("content") == null)
+            this.responsableSocle= "Aucun";
+        else
+            this.responsableSocle = (String) s_resp_socle.get("content");
 
         Map<String, String> s_description = (Map<String, String>) content.get("s_DESCRIPTION");
         this.description = (String) s_description.get("content");

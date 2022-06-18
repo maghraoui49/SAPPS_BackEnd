@@ -216,7 +216,11 @@ public class Application {
                 this.domaine = (String) s_domaine_principal.get("label");
 
                 Map<String,String> s_categorie= (Map<String,String>)content.get("s_CATEGORIE");
-                this.categorie = (String) s_categorie.get("content");
+
+                if (s_categorie.get("label")== null)
+                        this.categorie="Aucun";
+                else
+                        this.categorie = (String) s_categorie.get("label");
 
 
 

@@ -33,7 +33,7 @@ public class ServiceController {
     @Autowired
     private AuthController authController;
 
-    private static final String SERVICE_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsBAS/InstanceSourceApplicationsBAS/root/T_SERVICE_SOCLE";
+    private static final String SERVICE_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsBAS/InstanceSourceApplicationsBAS/root/T_SERVICE_SOCLE?pageSize=400";
 
 
 

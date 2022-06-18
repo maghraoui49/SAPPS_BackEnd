@@ -2,6 +2,9 @@ package net.atos.sapps_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class Service {
@@ -15,10 +18,19 @@ public class Service {
     String dateMep;
     String statut;
     String responsableSocle;
-    String objetMetier;
+ String objetMetier ;
     String dateDebut;
     String dateFin;
+    String respoSocle;
 
+
+    public String getRespoSocle() {
+        return respoSocle;
+    }
+
+    public void setRespoSocle(String respoSocle) {
+        this.respoSocle = respoSocle;
+    }
 
     public String getId() {
         return id;
@@ -132,17 +144,33 @@ public class Service {
         this.libelle = (String) s_libelle.get("content");
 
         Map<String, String> s_type_serv = (Map<String, String>) content.get("s_TYPE_SERV");
-        this.type = (String) s_type_serv.get("label");
+        if (s_type_serv.get("label") == null)
+            this.type= "Aucun";
+        else
+            this.type = (String) s_type_serv.get("label");
 
         Map<String, String> s_socle = (Map<String, String>) content.get("s_SOCLE");
-        this.socle = (String) s_socle.get("label");
+        if (s_socle.get("label") == null)
+            this.socle= "Aucun";
+        else
+            this.socle = (String) s_socle.get("label");
 
         Map<String, String> s_description = (Map<String, String>) content.get("s_DESCRIPTION");
         this.description = (String) s_description.get("content");
 
 
-//        Map<String, String> d_date_debut = (Map<String, String>) content.get("d_DATE_DEBUT");
-//        this.objetMetier = (String) d_date_debut.get("content");
+        Map<String, String> s_responsable_socle = (Map<String, String>) content.get("s_RESP_SOCLE");
+        if (s_responsable_socle.get("content") == null)
+            this.respoSocle= "Aucun";
+        else
+            this.respoSocle = (String) s_responsable_socle.get("content");
+
+
+//        Map<String,ArrayList<String> > s_OBJET_METIER = (Map<String,ArrayList<String> >) content.get("s_OBJET_METIER");
+////        this.objetMetier = (String) (s_OBJET_METIER.get("content"));
+
+
+
 
         Map<String, String> d_date_debut = (Map<String, String>) content.get("d_DATE_DEBUT");
         this.dateDebut = (String) d_date_debut.get("content");

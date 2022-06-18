@@ -155,7 +155,10 @@ public class Socle {
         this.resp = (String) s_responsableSOCLE.get("label");
 
         Map<String, String> s_archiSOCLE = (Map<String, String>) content.get("s_ArchiSOCLE");
-        this.archi = (String) s_archiSOCLE.get("label");
+        if (s_archiSOCLE.get("label") == null)
+            this.archi= "Aucun";
+        else
+            this.archi = (String) s_archiSOCLE.get("label");
 
         Map<String, String> d_date_fin = (Map<String, String>) content.get("d_DATE_FIN");
         this.dateFin = (String) d_date_fin.get("content");
@@ -167,7 +170,10 @@ public class Socle {
         this.libellePrefixe = (String) contentMap2.get("content");
 
         Map<String, String> s_categorie = (Map<String, String>) content.get("s_CATEGORIE");
-        this.categorie = (String) s_categorie.get("content");
+        if (s_categorie.get("content") == null)
+            this.categorie= "Aucun";
+        else
+            this.categorie = (String) s_categorie.get("content");
 
         Map<String, String> s_description = (Map<String, String>) content.get("s_DESCRIPTION");
         this.description = (String) s_description.get("content");

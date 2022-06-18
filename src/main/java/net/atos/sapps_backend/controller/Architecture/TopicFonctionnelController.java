@@ -32,7 +32,7 @@ public class TopicFonctionnelController {
     @Autowired
     private AuthController authController;
 
-    private static final String TOPIC_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsBAS/InstanceSourceApplicationsBAS/root/T_TOPIC_OUT";
+    private static final String TOPIC_URL = "http://localhost:8080/ebx-dataservices/rest/data/v1/BBrancheSourceApplicationsBAS/InstanceSourceApplicationsBAS/root/T_TOPIC_OUT?pageSize=400";
 
 
 
